@@ -41,17 +41,75 @@ p {
     padding: 0;
 }
 
+.weather__form-wrapper {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.weather__form--search {
+    display: block;
+
+    position: relative;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    
+}
+
+
+
+.weather__form--search input {
+      box-sizing: border-box;
+
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom:10px;
+    padding-right: 40px;    
+    padding-left: 15px;
+    border: 2px solid #1fd6bd;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font: inherit;
+
+    outline: none;
+    box-shadow: 0 0 10px  -2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+}
+
+/*.weather__form--search input:-webkit-autofill,
+.weather__form--search input:-webkit-autofill:focus {
+    transition: background-color 15s 0s, color 15s 0s;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+}*/
+
+.btn__serch {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #ffffff;
+    background-image: url('../img/search.svg');
+}
+
+.btn__serch:hover{
+    opacity: 0.3;
+}
+
 .weather {
    display: flex;
    margin: 0 auto;
-   margin-top: 50px;
+   
    box-sizing: border-box;
    width: 500px;
-   height:  300px;
-   padding: 40px;
+/*   height:  300px;
+*/   padding: 40px;
    border-radius: 20px;
    background-color: #1fd6bd;
    color: #ffffff; 
+
+
     
    
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -63,14 +121,33 @@ p {
 
 .weather__main {
     width: 320px;
+    position: relative;
 }
 
 .weather__city {
+    display: block;
     padding-bottom: 10px;
     font-size: 60px;
     line-height: 66px;
     font-weight: 700 ;   
 }
+
+.weather__city--hidden {
+    display: none;
+}
+
+
+/*
+.btn__open-form{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    background-color: #1fd6bd;
+
+}*/
 
 .weather__status {
     padding-bottom: 70px;

@@ -11,7 +11,15 @@
 </head>
 <body>
     <div class = "wrapper">
-        <div id = "weather" class = "weather"></div>
+        <div class="weather__form-wrapper">
+            <form class="weather__form--search" name="form-serch">
+                <input  type="text" name="search" id="search" placeholder="Searching your city..." autofocus>
+                <button class="btn__serch" type="submit"></button>
+            </form>
+        </div>
+        <div id = "weather" class = "weather">
+            
+        </div>
     </div>
     <script src='weather.js'></script>
 </body>

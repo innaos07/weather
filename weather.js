@@ -1,16 +1,90 @@
  'user strict'
 
-
+    function onPageLoaded() {
+        console.log('loaded')
+ 
+        let buttonSearch = document.querySelector('.btn__serch')
+        let searchInput = document.querySelector('.weather__form--search')
         const weatherBlock = document.querySelector('#weather')
-        console.log(weatherBlock)
 
-        async function loadWeather() {
+        let weatherObj = {
+            
+        }
+
+        buttonSearch.addEventListener('click', onClickButtonSearch)
+
+
+         function onClickButtonSearch(event) {
+            event.preventDefault()
+            console.log('click search')
+
+            let searchInput = document.querySelector('input[name="search"]')
+            console.log(searchInput)
+
+            let valueSearch = searchInput.value.trim();
+            console.log(valueSearch)
+
+           
+            if(!valueSearch){
+
+                weatherBlock.innerHTML = `
+                <div class="weather__loading">
+                    <img src = 'img/loading.svg' alt="loading...">
+                </div>`
+                return
+
+            }
+            
+            loadWeather(valueSearch)
+            makeWeatherObj(valueSearch)
+            saveLocalStorage()
+
+            valueSearch = ''
+
+        }
+
+
+        function makeWeatherObj(valueSearch) {
+        
+            weatherObj.city =  valueSearch;
+            console.log(weatherObj)
+
+        }
+
+        function saveLocalStorage() {
+
+            localStorage['weather'] = JSON.stringify(weatherObj);
+
+        }
+
+
+
+        function loadTodoListElem() {
+           
+            if(localStorage['weather']){
+                console.log('yes localStorage');
+                weatherObj = JSON.parse(localStorage['weather']);
+                renderWeatherWidget(weatherObj)
+                
+            } else {
+                console.log('not localStorage')
+                loadWeather(`Batumi`)
+            }
+        }
+        loadTodoListElem()
+
+        function renderWeatherWidget(weatherObj){
+            console.log('render' ,weatherObj.city)
+            loadWeather(weatherObj.city)
+        }
+
+        async function loadWeather(value) {
             weatherBlock.innerHTML = `
                 <div class="weather__loading">
                     <img src = 'img/loading.svg' alt="loading...">
                 </div>`
 
-            const server = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q=Batumi&appid=4a6c403b7f0af56cb97eb02e4b911803'
+            const server = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${value}&lang=ru_en&appid=4a6c403b7f0af56cb97eb02e4b911803`
             const response = await fetch(server,{
                 method: 'GET',
             });
@@ -21,16 +95,11 @@
                 
                 getWeather(responseResult)
 
-
             } else {
                 weatherBlock.innerHTML = responseResult.message;
             }
 
 
-        }
-
-        if(weatherBlock) {
-            loadWeather(); 
         }
 
         function getWeather(data) {
@@ -44,19 +113,21 @@
             const weatherStatus = data.weather[0].main;
             const weatherIcon = data.weather[0].icon;
             const humidity = data.main.humidity;
-            console.log(humidity)
+            
 
 
             createWeatherMain(weatherBlock);
             createWeatheCity(location);
+           
             createWeatheStatus(weatherStatus);
             createWeatherInfo(weatherBlock)
             createImageWeather(weatherIcon);
             createWeatherTemp(temp);
             createWeatherFeels(feelsLike);
-            createWeatherHumidity(humidity)
-;
+            createWeatherHumidity(humidity);
+
         }
+
 
         function createWeatherMain(weatherBlock) {
 
@@ -66,9 +137,10 @@
 
         }
 
+
         function createWeatheCity(location){
 
-            let weatheCity = document.createElement('p');
+            let weatheCity = document.createElement('div');
             let weatherMain = document.querySelector('.weather__main');
           
             weatheCity.className = 'weather__city';
@@ -131,3 +203,6 @@
             weatherHumidity.innerHTML = 'Humidity: '+humidity + ' %';
             weatherMain.append(weatherHumidity);
         }
+    }
+
+document.addEventListener( 'DOMContentLoaded',onPageLoaded )
