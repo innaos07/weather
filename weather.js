@@ -35,11 +35,11 @@
 
             }
             
-            loadWeather(valueSearch)
-            makeWeatherObj(valueSearch)
-            saveLocalStorage()
+            loadWeather(valueSearch);
+            makeWeatherObj(valueSearch);
+            saveLocalStorage();
 
-            valueSearch = ''
+            valueSearch = '';
 
         }
 
@@ -56,8 +56,6 @@
             localStorage['weather'] = JSON.stringify(weatherObj);
 
         }
-
-
 
         function loadTodoListElem() {
            
@@ -99,7 +97,6 @@
                 weatherBlock.innerHTML = responseResult.message;
             }
 
-
         }
 
         function getWeather(data) {
@@ -113,10 +110,14 @@
             const weatherStatus = data.weather[0].main;
             const weatherIcon = data.weather[0].icon;
             const humidity = data.main.humidity;
-            
 
+
+          
+            
+           
 
             createWeatherMain(weatherBlock);
+            // createWatch()
             createWeatheCity(location);
            
             createWeatheStatus(weatherStatus);
@@ -126,7 +127,57 @@
             createWeatherFeels(feelsLike);
             createWeatherHumidity(humidity);
 
+            
+
+
+
         }
+
+        // function createClock() {
+        //     let date = new Date()
+        //     console.log(date)
+
+        //     let hour = document.querySelector('#hour')
+        //     console.log(hour)
+        //     let minutes = document.querySelector('#minutes')
+        //     let second = document.querySelector('#second')
+
+        //       hour.innerHTML = date.getHours() +':';
+        //       console.log(hour)
+        //     // if(hour.innerHTML < 10){
+        //     //     hour.innerHTML = '0' + hour.innerHTML +':'; 
+        //     // }
+        //       minutes.innerHTML = date.getMinutes() + ':';
+        //     // if(minutes.innerHTML < 10){
+        //     //     minutes.innerHTML = '0' + minutes.innerHTML  + ':'; 
+        //     // }
+        //       hour.innerHTML = date.getSeconds();
+        //     // if(hour.innerHTML < 10){
+        //     //     hour.innerHTML = '0' + hour.innerHTML; 
+        //     // }
+        // }
+
+        // function createWatch(){
+        //     let watch = document.createElement('div');
+        //     let weatherMain = document.querySelector('.weather__main');
+        //     watch.className = "weather__watch"
+        //     weatherMain.append(watch)
+        //     console.log(watch)
+
+        //     let hour = document.createElement('span')
+        //     hour.id = 'hour'
+        //     watch.append(hour);
+        //     let minutes = document.createElement('span')
+        //     minutes.id = "minutes"
+        //     watch.append(minutes)
+        //     let second = document.createElement('span')
+        //     second.id = "second"
+        //     watch.append(second);
+        //     createClock()
+           
+           
+        
+        // }
 
 
         function createWeatherMain(weatherBlock) {

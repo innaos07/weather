@@ -42,7 +42,8 @@ p {
 }
 
 .weather__form-wrapper {
-    width: 500px;
+    /*width: 500px;*/
+    width: 100%;
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -59,7 +60,7 @@ p {
 
 
 .weather__form--search input {
-      box-sizing: border-box;
+    box-sizing: border-box;
 
     width: 100%;
     padding-top: 10px;
@@ -76,11 +77,11 @@ p {
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
 }
 
-/*.weather__form--search input:-webkit-autofill,
-.weather__form--search input:-webkit-autofill:focus {
-    transition: background-color 15s 0s, color 15s 0s;
-    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
-}*/
+.weather__form--search input:hover,
+.weather__form--search input:focus {
+    border-color: #1cb09c;
+    transition: all 0.5s;
+}
 
 .btn__serch {
     position: absolute;
@@ -91,9 +92,15 @@ p {
     border: none;
     background-color: #ffffff;
     background-image: url('../img/search.svg');
+    transition: all 0.5s;
 }
 
-.btn__serch:hover{
+.btn__serch:hover,
+.btn__serch:focus {
+     background-image: url('../img/search-hover.svg');
+}
+
+.btn__serch:active{
     opacity: 0.3;
 }
 
@@ -102,15 +109,17 @@ p {
    margin: 0 auto;
    
    box-sizing: border-box;
-   width: 500px;
-/*   height:  300px;
-*/   padding: 40px;
+  
+   width: 100%;
+   padding: 40px;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   padding-right: 7%;
+   padding-left: 7%;
+
    border-radius: 20px;
    background-color: #1fd6bd;
-   color: #ffffff; 
-
-
-    
+   color: #ffffff;    
    
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -120,14 +129,15 @@ p {
 }
 
 .weather__main {
-    width: 320px;
+    width: 80%;
     position: relative;
 }
 
 .weather__city {
+
     display: block;
     padding-bottom: 10px;
-    font-size: 60px;
+    font-size: 50px;
     line-height: 66px;
     font-weight: 700 ;   
 }
@@ -137,17 +147,6 @@ p {
 }
 
 
-/*
-.btn__open-form{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
-    border: 1px solid white;
-    background-color: #1fd6bd;
-
-}*/
 
 .weather__status {
     padding-bottom: 70px;
@@ -165,7 +164,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px;
+    width: 20%;
 }
 
 .weather__temp {
@@ -178,4 +177,17 @@ p {
 .weather__icon img {
     width: 70px;
     height: 70px;
+}
+
+@media (min-width: 620px){
+    .weather__form-wrapper{
+        width: 600px;
+    }
+
+    .weather {
+        width: 600px;
+        padding-right: 30px;
+        padding-left: 30px;
+    } 
+
 }
