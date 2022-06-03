@@ -43,6 +43,50 @@
 
         }
 
+        function createDate() {
+            let date = new Date()
+            let day = document.querySelector('#day')
+            let month = document.querySelector('#mounth')
+            let year = document.querySelector('#year')
+
+            day.innerHTML = date.getDate();
+
+            let monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+            month.innerHTML = monthArray[date.getMonth()];
+            year.innerHTML = date.getFullYear();
+        }
+        createDate() 
+
+
+        function clockStart() {
+            createClock()
+            setInterval(()=>createClock(), 1000)
+
+        }
+        clockStart()
+
+        function createClock() {
+            let date = new Date()
+            
+
+            let hours = document.querySelector('#hour')
+            let minutes = document.querySelector('#minutes')
+            let seconds = document.querySelector('#second')
+
+            hour.innerHTML = date.getHours() ;
+            if(hour.innerHTML < 10){
+                hour.innerHTML = '0' + hour.innerHTML; 
+            }
+            minutes.innerHTML = date.getMinutes();
+            if(minutes.innerHTML < 10){
+                minutes.innerHTML = '0' + minutes.innerHTML; 
+            }
+            seconds.innerHTML = date.getSeconds();
+            if(seconds.innerHTML < 10){
+                seconds.innerHTML = '0' + seconds.innerHTML; 
+            }
+        }
+
 
         function makeWeatherObj(valueSearch) {
         
@@ -111,11 +155,6 @@
             const weatherIcon = data.weather[0].icon;
             const humidity = data.main.humidity;
 
-
-          
-            
-           
-
             createWeatherMain(weatherBlock);
             // createWatch()
             createWeatheCity(location);
@@ -127,57 +166,13 @@
             createWeatherFeels(feelsLike);
             createWeatherHumidity(humidity);
 
-            
 
 
 
         }
 
-        // function createClock() {
-        //     let date = new Date()
-        //     console.log(date)
 
-        //     let hour = document.querySelector('#hour')
-        //     console.log(hour)
-        //     let minutes = document.querySelector('#minutes')
-        //     let second = document.querySelector('#second')
-
-        //       hour.innerHTML = date.getHours() +':';
-        //       console.log(hour)
-        //     // if(hour.innerHTML < 10){
-        //     //     hour.innerHTML = '0' + hour.innerHTML +':'; 
-        //     // }
-        //       minutes.innerHTML = date.getMinutes() + ':';
-        //     // if(minutes.innerHTML < 10){
-        //     //     minutes.innerHTML = '0' + minutes.innerHTML  + ':'; 
-        //     // }
-        //       hour.innerHTML = date.getSeconds();
-        //     // if(hour.innerHTML < 10){
-        //     //     hour.innerHTML = '0' + hour.innerHTML; 
-        //     // }
-        // }
-
-        // function createWatch(){
-        //     let watch = document.createElement('div');
-        //     let weatherMain = document.querySelector('.weather__main');
-        //     watch.className = "weather__watch"
-        //     weatherMain.append(watch)
-        //     console.log(watch)
-
-        //     let hour = document.createElement('span')
-        //     hour.id = 'hour'
-        //     watch.append(hour);
-        //     let minutes = document.createElement('span')
-        //     minutes.id = "minutes"
-        //     watch.append(minutes)
-        //     let second = document.createElement('span')
-        //     second.id = "second"
-        //     watch.append(second);
-        //     createClock()
-           
-           
-        
-        // }
+ 
 
 
         function createWeatherMain(weatherBlock) {
