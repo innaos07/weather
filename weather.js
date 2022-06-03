@@ -255,7 +255,7 @@
 
             } else if(id >= 701 && id <= 781){
 
-                weatherStatus.classList.add('weather__status--main ');
+                weatherStatus.classList.add('weather__status--mist');
             }
         }
 

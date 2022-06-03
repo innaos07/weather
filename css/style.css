@@ -208,16 +208,16 @@ p {
 }
 
 
-.weather__status--thunderstorm {
+.weather__status--thunderstorm:after {
     background-image: url('../img/thunderstorm.svg');
 }
 
-.weather__status--snow {
+.weather__status--snow:after {
     background-image: url('../img/snow.svg');
 }
 
-.weather__status--main {
-    background-image: url('../img/main.svg');
+.weather__status--mist:after {
+    background-image: url('../img/mist.svg');
 }
 
 .weather__city {
