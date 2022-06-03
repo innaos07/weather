@@ -39,8 +39,7 @@
             makeWeatherObj(valueSearch);
             saveLocalStorage();
 
-            valueSearch = '';
-
+            searchInput.value = '';
         }
 
         function createDate() {
@@ -60,7 +59,7 @@
 
         function clockStart() {
             createClock()
-            setInterval(()=>createClock(), 1000)
+            setInterval(()=>createClock(), 30000)
 
         }
         clockStart()
@@ -81,10 +80,10 @@
             if(minutes.innerHTML < 10){
                 minutes.innerHTML = '0' + minutes.innerHTML; 
             }
-            seconds.innerHTML = date.getSeconds();
-            if(seconds.innerHTML < 10){
-                seconds.innerHTML = '0' + seconds.innerHTML; 
-            }
+            // seconds.innerHTML = date.getSeconds();
+            // if(seconds.innerHTML < 10){
+            //     seconds.innerHTML = '0' + seconds.innerHTML; 
+            // }
         }
 
 
@@ -139,6 +138,8 @@
 
             } else {
                 weatherBlock.innerHTML = responseResult.message;
+                weatherObj.city =  'Batumi'
+                saveLocalStorage()
             }
 
         }
@@ -153,62 +154,36 @@
             const feelsLike = Math.round(data.main.feels_like)
             const weatherStatus = data.weather[0].main;
             const weatherIcon = data.weather[0].icon;
+            const idWeather = data.weather[0].id;
             const humidity = data.main.humidity;
 
-            createWeatherMain(weatherBlock);
-            // createWatch()
-            createWeatheCity(location);
-           
-            createWeatheStatus(weatherStatus);
-            createWeatherInfo(weatherBlock)
+            createWeatherInfo();
             createImageWeather(weatherIcon);
             createWeatherTemp(temp);
+            
+            createWeatheCity(location);
+
+            createWeatheStatus(weatherStatus, idWeather);
+            
             createWeatherFeels(feelsLike);
             createWeatherHumidity(humidity);
-
-
-
-
+        
         }
-
-
- 
-
-
-        function createWeatherMain(weatherBlock) {
-
-            let weatherMain = document.createElement('div');
-            weatherMain.className = 'weather__main';
-            weatherBlock.append(weatherMain);
-
-        }
-
 
         function createWeatheCity(location){
 
             let weatheCity = document.createElement('div');
-            let weatherMain = document.querySelector('.weather__main');
           
             weatheCity.className = 'weather__city';
             weatheCity.innerHTML = location;
-            weatherMain.append(weatheCity)
+            weatherBlock.append(weatheCity)
 
         }
 
-        function createWeatheStatus(weatherStatus){
-
-            let weatheStatus = document.createElement('p');
-            let weatherMain = document.querySelector('.weather__main');
-
-            weatheStatus.className ='weather__status';
-            weatheStatus.innerHTML = weatherStatus;
-            weatherMain.append(weatheStatus);
-
-        }
-
-        function createWeatherInfo(weatherBlock){
+        function createWeatherInfo(){
 
             let weatherInfo = document.createElement('div')
+         
             weatherInfo.className = 'weather__info'
             weatherBlock.append(weatherInfo);
 
@@ -230,24 +205,78 @@
 
         }
 
+        function createWeatheStatus(status, id){
+
+            let weatheStatus = document.createElement('p');
+
+            weatheStatus.className ='weather__status';
+            weatheStatus.innerHTML = status;
+            weatheStatus.dataset.description = id;
+            weatherBlock.append(weatheStatus);
+            
+            let idWeather  = weatheStatus.dataset.description;
+            console.log('idWeather ',idWeather)
+            setStatusImage(idWeather);
+
+        }
+
+        function setStatusImage(id){
+              
+            console.log(id)
+            let weatherStatus = document.querySelector('.weather__status')
+
+            if(id > 801 && id <= 804 ) {
+
+                weatherStatus.classList.add('weather__status--cloudy');
+                
+            } else if(id == 800){
+
+                weatherStatus.classList.add('weather__status--sunny');
+
+            } else if(id == 801) {
+
+                weatherStatus.classList.add('weather__status--few-cloudy')
+
+            } else if ( (id >= 520 && id <= 531) || (id >= 300 && id <= 321)){
+
+                weatherStatus.classList.add('weather__status--shower-rain');
+
+            } else if (id >= 500 && id <=504){
+
+                weatherStatus.classList.add('weather__status--rain-sunny');
+
+            } else if(id >= 200 && id <= 232){
+
+                weatherStatus.classList.add('weather__status--thunderstorm');
+
+            } else if(id >= 600 && id <= 622){
+
+                weatherStatus.classList.add('weather__status--snow');
+
+            } else if(id >= 701 && id <= 781){
+
+                weatherStatus.classList.add('weather__status--main ');
+            }
+        }
+
+
         function createWeatherFeels(feelsLike) {
+
             let weatherFeels = document.createElement('p');
-            let weatherMain = document.querySelector('.weather__main');
 
             weatherFeels.className = 'weather__fells';
             weatherFeels.innerHTML = 'Feels like: ' + feelsLike + '&#176' + 'C';
-            weatherMain.append(weatherFeels);
+            weatherBlock.append(weatherFeels);
 
         }
 
         function createWeatherHumidity(humidity) {
 
             let weatherHumidity = document.createElement('p');
-            let weatherMain = document.querySelector('.weather__main');
 
             weatherHumidity.className = 'weather__humidity';
             weatherHumidity.innerHTML = 'Humidity: '+humidity + ' %';
-            weatherMain.append(weatherHumidity);
+            weatherBlock.append(weatherHumidity);
         }
     }
 
