@@ -153,17 +153,16 @@
             const temp = Math.round(data.main.temp);
             const feelsLike = Math.round(data.main.feels_like)
             const weatherStatus = data.weather[0].main;
-            const weatherIcon = data.weather[0].icon;
+            // const weatherIcon = data.weather[0].icon;
             const idWeather = data.weather[0].id;
             const humidity = data.main.humidity;
 
-            createWeatherInfo();
-            createImageWeather(weatherIcon);
-            createWeatherTemp(temp);
-            
             createWeatheCity(location);
-
-            createWeatheStatus(weatherStatus, idWeather);
+            createWeatheStatus(weatherStatus);
+            createImageWeather(idWeather);
+            createWeatherInfo();
+            
+            createWeatherTemp(temp);
             
             createWeatherFeels(feelsLike);
             createWeatherHumidity(humidity);
@@ -189,11 +188,55 @@
 
         }
 
-        function createImageWeather(weatherIcon) {
-            let imageWeather = document.createElement('img')
-            let weatherInfo = document.querySelector('.weather__info')
-            imageWeather.src = `https://api.openweathermap.org/img/w/${weatherIcon}.png`
-            weatherInfo.append(imageWeather) 
+        function createImageWeather(id) {
+            let imageWeather = document.createElement('div')
+
+            imageWeather.className = 'weather__image';
+            imageWeather.dataset.description = id;
+            weatherBlock.append(imageWeather) 
+
+            let idWeather  = imageWeather.dataset.description;
+            setStatusImage(idWeather);
+        }
+
+
+        function setStatusImage(id){
+              
+            console.log(id)
+            let weatherImage = document.querySelector('.weather__image')
+
+            if(id > 801 && id <= 804 ) {
+
+                weatherImage.classList.add('weather__image--cloudy');
+                
+            } else if(id == 800){
+
+                weatherImage.classList.add('weather__image--sunny');
+
+            } else if(id == 801) {
+
+                weatherImage.classList.add('weather__image--few-cloudy')
+
+            } else if ( (id >= 520 && id <= 531) || (id >= 300 && id <= 321)){
+
+                weatherImage.classList.add('weather__image--shower-rain');
+
+            } else if (id >= 500 && id <=504){
+
+                weatherImage.classList.add('weather__image--rain-sunny');
+
+            } else if(id >= 200 && id <= 232){
+
+                weatherImage.classList.add('weather__image--thunderstorm');
+
+            } else if(id >= 600 && id <= 622){
+
+                weatherImage.classList.add('weather__image--snow');
+
+            } else if(id >= 701 && id <= 781){
+
+                weatherImage.classList.add('weather__image--mist');
+            }
         }
 
         function createWeatherTemp(temp) {
@@ -205,60 +248,15 @@
 
         }
 
-        function createWeatheStatus(status, id){
+        function createWeatheStatus(status){
 
             let weatheStatus = document.createElement('p');
 
             weatheStatus.className ='weather__status';
             weatheStatus.innerHTML = status;
-            weatheStatus.dataset.description = id;
-            weatherBlock.append(weatheStatus);
-            
-            let idWeather  = weatheStatus.dataset.description;
-            console.log('idWeather ',idWeather)
-            setStatusImage(idWeather);
+            weatherBlock.append(weatheStatus);   
 
         }
-
-        function setStatusImage(id){
-              
-            console.log(id)
-            let weatherStatus = document.querySelector('.weather__status')
-
-            if(id > 801 && id <= 804 ) {
-
-                weatherStatus.classList.add('weather__status--cloudy');
-                
-            } else if(id == 800){
-
-                weatherStatus.classList.add('weather__status--sunny');
-
-            } else if(id == 801) {
-
-                weatherStatus.classList.add('weather__status--few-cloudy')
-
-            } else if ( (id >= 520 && id <= 531) || (id >= 300 && id <= 321)){
-
-                weatherStatus.classList.add('weather__status--shower-rain');
-
-            } else if (id >= 500 && id <=504){
-
-                weatherStatus.classList.add('weather__status--rain-sunny');
-
-            } else if(id >= 200 && id <= 232){
-
-                weatherStatus.classList.add('weather__status--thunderstorm');
-
-            } else if(id >= 600 && id <= 622){
-
-                weatherStatus.classList.add('weather__status--snow');
-
-            } else if(id >= 701 && id <= 781){
-
-                weatherStatus.classList.add('weather__status--mist');
-            }
-        }
-
 
         function createWeatherFeels(feelsLike) {
 
