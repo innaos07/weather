@@ -5,10 +5,10 @@
         // console.log('loaded')
  
         const buttonSearch = document.querySelector('.btn__serch');
-        const searchInput = document.querySelector('.weather__form--search');
+        searchInput = document.querySelector('.weather__form--search');
         const weatherBlock = document.querySelector('#weather');
 
-        const weatherObj = {};
+        let weatherObj = {};
 
         buttonSearch.addEventListener('click', onClickButtonSearch);
 
